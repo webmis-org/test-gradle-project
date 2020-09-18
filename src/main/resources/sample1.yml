@@ -1,0 +1,9 @@
+!!org.ballerinalang.jvm.values.BmpStringValue {
+  }: !!org.ballerinalang.jvm.values.BmpStringValue {
+  }
+!!org.ballerinalang.jvm.values.BmpStringValue {
+  }: !!org.ballerinalang.jvm.values.BmpStringValue {
+  }
+!!org.ballerinalang.jvm.values.BmpStringValue {
+  }: !!org.ballerinalang.jvm.values.ArrayValueImpl {
+  }

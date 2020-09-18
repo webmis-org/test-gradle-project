@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id "net.researchgate.release" version "2.6.0"
+}
+
+group 'org.example'
+version project.version
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'Main'
+        )
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId "org.buddhi"
+            artifactId "test-gradle"
+            version = project.version
+            artifact jar
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/BuddhiWathsala/test-gradle-project")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+}
+
+release {
+    // Disable check snapshots temporarily
+    buildTasks = []
+    failOnSnapshotDependencies = false
+    failOnCommitNeeded = false
+    versionPropertyFile = 'gradle.properties'
+    tagTemplate = '${version}'
+    git {
+        // To release from any branch
+        requireBranch = null
+    }
+}
